@@ -1,8 +1,12 @@
 package com.example.springgraphql.book;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -14,23 +18,18 @@ public class BookController {
         return bookService.getAllBooks();
     }
 
-//    @GetMapping("/{id}")
-//    Optional<Book> getByid(@PathVariable String id) {
-//        return bookService.getById(id);
-//    }
-//
-//    @PostMapping
-//    Book save(@RequestBody Book book) {
-//        return bookService.create(book);
-//    }
-//
-//    @PutMapping("/{id}")
-//    Book update(@RequestBody Book book, @PathVariable String id) {
-//        return bookService.update(id, book);
-//    }
-//
-//    @DeleteMapping(("/{id}"))
-//    void save(@PathVariable String id) {
-//        bookService.delete(id);
-//    }
+    @QueryMapping
+    Optional<Book> bookById(@Argument Long id) {
+        return bookService.getById(id);
+    }
+
+    @MutationMapping
+    Book createBook(@Argument BookInput book) {
+        return bookService.create(book);
+    }
+
+    @MutationMapping
+    boolean deleteBook(@Argument Long id) {
+        return bookService.delete(id);
+    }
 }
