@@ -32,7 +32,3 @@ input BookInput{
     authorId:ID!
     description: String!
 }
-
-input AuthorInput{
-    name: String!
-}
